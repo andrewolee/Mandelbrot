@@ -126,9 +126,9 @@ class Mandelbrot {
         this.render();
     }
 
-    startPan() {
+    startPan(e) {
         this.panning = true;
-        this.panXY = this.mouseXY;
+        this.panXY = this.coordsToPoint(e.clientX, e.clientY);
         this.panCenter = this.u_center;
     }
 
