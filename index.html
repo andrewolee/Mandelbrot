@@ -2,28 +2,22 @@
 <html>
   <head>
     <style>
-      #canvas {
+      html, body, #canvas {
         width: 100%;
         height: 100%;
         margin: 0;
         padding: 0;
       }
-
-      #tools {
-        width: 100em;
-        height: 100em;
+      html {
+        overflow: hidden;
       }
-
-      #save {
-        border: 1px solid black;
+      #canvas {
+        background-color: black;
       }
     </style>
   </head>
   <body>
     <canvas id="canvas"></canvas>
-    <div id="tools">
-      <a id="save" download="mandelbrot.png">Save Image</a>
-    </div>
     <script src="mandelbrot.js"></script>
   </body>
 </html>
