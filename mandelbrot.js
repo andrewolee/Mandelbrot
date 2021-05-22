@@ -3,6 +3,7 @@ Adapted from:
     https://gpfault.net/posts/mandelbrot-webgl.txt.html
     https://github.com/ekzhang/webgl-julia-viewer
 */
+
 class Mandelbrot {
     constructor(canvas, vshader, fshader) {
         this.canvas = canvas;
@@ -17,6 +18,7 @@ class Mandelbrot {
         this.u_window = [];
         this.u_center = [-0.6, 0.0];
         this.u_zoom = 2.5;
+        this.u_orbit = false;
 
         this.mouseXY = [];
         this.panXY = [];
@@ -26,6 +28,7 @@ class Mandelbrot {
             u_window: this.gl.getUniformLocation(this.shaderProgram, "u_window"),
             u_center: this.gl.getUniformLocation(this.shaderProgram, "u_center"),
             u_zoom: this.gl.getUniformLocation(this.shaderProgram, "u_zoom"),
+            u_orbit: this.gl.getUniformLocation(this.shaderProgram, "u_orbit")
         };
         
         const vertices = [
@@ -150,7 +153,7 @@ const fshader = `
     uniform vec2 u_window;
     uniform vec2 u_center;
     uniform float u_zoom;
-    uniform bool u_color;
+    uniform bool u_orbit;
 
     void main() {
         vec2 z = vec2(0.0);
@@ -160,7 +163,7 @@ const fshader = `
         float n = 0.0;
         for (int i = 0; i < 1000; i++) {
             z = vec2(z.x * z.x - z.y * z.y, 2.0 * z.x * z.y) + c;
-            if (dot(z, z) > (256.0 * 256.0)) break;
+            if (dot(z, z) > 128.0) break;
             n += 1.0;
         }
         float sn = n - log2(log2(dot(z, z))) + 4.0;
